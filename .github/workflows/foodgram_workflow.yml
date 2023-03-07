@@ -32,11 +32,22 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Create infra directory
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        key: ${{ secrets.SSH_KEY }}
+        passphrase: ${{ secrets.PASSPHRASE }}
+        script: |
+          sudo rm -rf infra/
+          mkdir -p infra/
+
     - name: Copy infra
       uses: garygrossgarten/github-action-scp@release
       with:
         local: infra/
-        remote: /home/${{ secrets.USER }}/
+        remote: /home/${{ secrets.USER }}/infra/
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         privateKey: ${{ secrets.SSH_KEY }}
@@ -91,6 +102,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
+          cd infra/
           sudo docker compose stop
           sudo docker compose rm foodgram-backend
           sudo docker compose rm foodgram-frontend
