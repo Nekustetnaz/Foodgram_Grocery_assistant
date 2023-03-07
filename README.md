@@ -2,7 +2,6 @@
 
 ## Описание проекта
 ## Foodgram - «Grocery assistant»
-
 This is an online service that allows users to publish recipes, subscribe to other users' publications, add recipes to a favorites list and upload a summary list of products needed to prepare one or more selected dishes before going to the store.
 
 The project uses a PostgreSQL database and runs in three containers (nginx, PostgreSQL and Django) via docker-compose on a server. The image with the project is uploaded to Docker Pub.
