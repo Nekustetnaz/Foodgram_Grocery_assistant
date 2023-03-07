@@ -3,7 +3,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN apt update && \
     apt upgrade -y && \
-    apt install python3-pip python3-cffi python3-brotli libpango-1.0-0 libpangoft2-1.0-0
+    apt -y install python3-pip python3-cffi python3-brotli libpango-1.0-0 libpangoft2-1.0-0
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt --no-cache-dir
 COPY . .
