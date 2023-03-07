@@ -1,10 +1,10 @@
-from rest_framework import serializers
-
-from .fields import Base64ImageField
 from recipes.models import (Favorite, Ingredient, IngredientsInRecipe, Recipe,
                             ShoppingCart, Tag)
+from rest_framework import serializers
 from users.models import Subscription, User
 from users.serializers import CustomUserSerializer
+
+from .fields import Base64ImageField
 
 
 class TagSerializer(serializers.ModelSerializer):
