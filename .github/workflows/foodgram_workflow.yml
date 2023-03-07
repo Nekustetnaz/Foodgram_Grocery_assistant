@@ -32,22 +32,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Create infra directory
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USER }}
-        key: ${{ secrets.SSH_KEY }}
-        passphrase: ${{ secrets.PASSPHRASE }}
-        script: |
-          sudo rm -rf infra/
-          mkdir -p infra/
-
     - name: Copy infra
       uses: garygrossgarten/github-action-scp@release
       with:
         local: infra/
-        remote: /home/${{ secrets.USER }}/infra/
+        remote: /home/${{ secrets.USER }}/
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         privateKey: ${{ secrets.SSH_KEY }}
@@ -113,7 +102,6 @@ jobs:
           echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
           echo DB_HOST=${{ secrets.DB_HOST }} >> .env
           echo DB_PORT=${{ secrets.DB_PORT }} >> .env
-          cd infra/
           sudo docker compose up -d
           sudo docker compose exec backend python manage.py migrate
           sudo docker compose exec backend python manage.py collectstatic --no-input
