@@ -52,7 +52,6 @@ tinycss2==1.2.1
 typing_extensions==4.5.0
 uritemplate==4.1.1
 urllib3==1.26.14
-weasyprint==58.0
 webencodings==0.5.1
 zipp==3.14.0
 zopfli==0.2.2

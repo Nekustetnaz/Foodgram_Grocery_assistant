@@ -14,7 +14,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from users.models import Subscription, User
-from weasyprint import HTML
 
 from .filters import RecipeFilter
 from .pagination import CustomPagination
@@ -130,10 +129,9 @@ class RecipeViewSet(ModelViewSet):
             'ingredients_sum',
             'ingredients__measurement_unit'
         )
-        shopping_cart_template = render_to_string(
+        txt_template = render_to_string(
             template_name='recipes/shopping_cart.html',
             context={'ingredients': shopping_cart})
-        shopping_pdf = HTML(string=shopping_cart_template).write_pdf()
-        response = HttpResponse(shopping_pdf, content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename=shopping.pdf'
+        response = HttpResponse(txt_template, content_type='text/plain')
+        response['Content-Disposition'] = 'attachment; filename=shopping.txt'
         return response
