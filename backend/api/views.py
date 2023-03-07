@@ -97,12 +97,11 @@ class RecipeViewSet(ModelViewSet):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        if request.method == 'DELETE':
-            recipe = get_object_or_404(Recipe, id=pk)
-            favorite = get_object_or_404(Favorite, owner=request.user,
-                                         favorite=recipe)
-            favorite.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+        recipe = get_object_or_404(Recipe, id=pk)
+        favorite = get_object_or_404(Favorite, owner=request.user,
+                                     favorite=recipe)
+        favorite.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(detail=True, methods=['post', 'delete'])
     def shopping_cart(self, request, pk):
@@ -113,12 +112,11 @@ class RecipeViewSet(ModelViewSet):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        if request.method == 'DELETE':
-            recipe = get_object_or_404(Recipe, id=pk)
-            purchase = get_object_or_404(ShoppingCart, customer=request.user,
-                                         purchase=recipe)
-            purchase.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+        recipe = get_object_or_404(Recipe, id=pk)
+        purchase = get_object_or_404(ShoppingCart, customer=request.user,
+                                     purchase=recipe)
+        purchase.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(detail=False, methods=['get'])
     def download_shopping_cart(self, request):
