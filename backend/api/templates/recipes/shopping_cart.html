@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Shopping List</title>
+</head>
+<body>
+    <h2><center>Shopping List</center></h2>
+    {% for name, amount, measurement_unit  in ingredients %}
+        <li>{{ name }} - {{ amount }} {{ measurement_unit }}</li>
+    {% endfor %}
+</body>
+</html>
