@@ -132,6 +132,7 @@ class RecipeViewSet(ModelViewSet):
         txt_template = render_to_string(
             template_name='recipes/shopping_cart.html',
             context={'ingredients': shopping_cart})
-        response = HttpResponse(txt_template, content_type='text/plain')
+        response = HttpResponse(content_type='text/plain')
         response['Content-Disposition'] = 'attachment; filename=shopping.txt'
+        response.writelines(txt_template)
         return response
