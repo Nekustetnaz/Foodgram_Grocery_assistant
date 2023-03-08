@@ -1,7 +1,6 @@
 from django.db.models import F, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from django.template.loader import render_to_string
 from django_filters.rest_framework import DjangoFilterBackend
 from recipes.models import (Favorite, Ingredient, IngredientsInRecipe, Recipe,
                             ShoppingCart, Tag)
@@ -129,10 +128,13 @@ class RecipeViewSet(ModelViewSet):
             'ingredients_sum',
             'ingredients__measurement_unit'
         )
-        txt_template = render_to_string(
-            template_name='recipes/shopping_cart.html',
-            context={'ingredients': shopping_cart})
         response = HttpResponse(content_type='text/plain')
         response['Content-Disposition'] = 'attachment; filename=shopping.txt'
-        response.writelines(txt_template)
+        shopping_cart_list = ['Shopping List:\n']
+        for ingredients in shopping_cart:
+            ingredient, amount, meaurement_unit,  = ingredients
+            shopping_cart_list.append(
+                f'{ingredient} - {amount} {meaurement_unit}\n'
+            )
+        response.writelines(shopping_cart_list)
         return response
