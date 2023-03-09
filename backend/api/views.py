@@ -2,8 +2,6 @@ from django.db.models import F, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from recipes.models import (Favorite, Ingredient, IngredientsInRecipe, Recipe,
-                            ShoppingCart, Tag)
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.generics import ListAPIView
@@ -11,6 +9,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
+
+from recipes.models import (Favorite, Ingredient, IngredientsInRecipe, Recipe,
+                            ShoppingCart, Tag)
 from users.models import Subscription, User
 
 from .filters import IngredientFilter, RecipeFilter
@@ -25,12 +26,14 @@ from .serializers import (FavoriteSerializer, IngredientSerializer,
 class TagViewSet(ReadOnlyModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    pagination_class = None
 
 
 class IngredientViewSet(ReadOnlyModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     filter_backends = (IngredientFilter,)
+    pagination_class = None
     search_fields = ('^name',)
 
 
@@ -131,7 +134,7 @@ class RecipeViewSet(ModelViewSet):
         response['Content-Disposition'] = 'attachment; filename=shopping.txt'
         shopping_cart_list = ['Shopping List:\n']
         for ingredients in shopping_cart:
-            ingredient, amount, meaurement_unit,  = ingredients
+            ingredient, amount, meaurement_unit, = ingredients
             shopping_cart_list.append(
                 f'{ingredient} - {amount} {meaurement_unit}\n'
             )

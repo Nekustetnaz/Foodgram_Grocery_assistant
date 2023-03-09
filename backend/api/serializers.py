@@ -1,6 +1,7 @@
+from rest_framework import serializers
+
 from recipes.models import (Favorite, Ingredient, IngredientsInRecipe, Recipe,
                             ShoppingCart, Tag)
-from rest_framework import serializers
 from users.models import Subscription, User
 from users.serializers import CustomUserSerializer
 
