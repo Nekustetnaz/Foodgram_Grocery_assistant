@@ -34,8 +34,8 @@ jobs:
     - name: Copy infra
       uses: garygrossgarten/github-action-scp@release
       with:
-        local: infra/
-        remote: /home/${{ secrets.USER }}/
+        local: infra
+        remote: /home/${{ secrets.USER }}
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         privateKey: ${{ secrets.SSH_KEY }}
