@@ -1,11 +1,11 @@
-# praktikum_new_diplom
+# Foodgram project
 
 Server IP: 51.250.100.209
 
 Admin - anton
 Pass - antonanton
 
-## Описание проекта
+## Description
 ## Foodgram - «Grocery assistant»
 This is an online service that allows users to publish recipes, subscribe to other users' publications, add recipes to a favorites list and upload a summary list of products needed to prepare one or more selected dishes before going to the store.
 
